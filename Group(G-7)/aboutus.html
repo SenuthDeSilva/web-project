@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  
+  <!-- links for the nav -->
+  <link rel="stylesheet" href="global.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fasthand&family=Inter&display=swap" rel="stylesheet">
+  
+  
+  <title>About Us</title>
+  
+  <!-- styles -->
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      box-sizing: border-box;
+    }
+
+    .content{
+      background: var(--background);
+    }
+    .container{
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    h1{
+      float: left;
+    }
+    .gallery{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .img-box{
+      width: 100px;
+      height: 500px;
+      margin: 10px;
+      border-radius: 50px;
+      background: url(../img/student1.jpg);
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      display: flex;
+      transition: 0.5s ease;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .img-box:nth-child(2){
+      background: url(../img/student2.jpg);
+      background-size: cover;
+      background-position: center;
+    }
+
+    .img-box:nth-child(3){
+      background: url(../img/student3.jpg);
+      background-size: cover;
+      background-position: center;
+    }
+
+    .img-box:nth-child(4){
+      background: url(../img/student4.jpg);
+      background-size: cover;
+      background-position: center;
+    }
+
+
+    .img-box:hover{
+      width: 300px;
+      cursor: pointer;
+    }
+
+    .img-box:hover::before{
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+     width: 100%;
+      background: linear-gradient(0deg, black 0%, black 10%, transparent);
+    
+    }
+
+    .img-box .about{
+      color: #f2e9ff;
+      position: absolute;
+      align-items: end;
+      width: 300px;
+      height: 0%;
+      padding: 0 20px;
+      transform: translateX(100%);
+      opacity: 0;
+      transition: 0.5s;
+    }
+
+    .img-box:hover .about{
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    .about h3{
+      font-size: 30px;
+      color: orange;
+    }
+
+    .img-box:nth-child(2) .about h3{
+      color:  seagreen;
+    }
+
+    .img-box:nth-child(3) .about h3{
+      color: #41DCE3;
+    }
+    .img-box:nth-child(4) .about h3{
+      color: palevioletred;
+    }
+
+  </style>
+</head>
+
+<body onload="document.body.style.setProperty('--tint', Math.floor(Math.random() * 360).toString())">  
+  
+  <!-- the nav bar done by student 2 -->
+  <div id="navbar">
+    <div class="logo"></div>
+    <div class="separator"></div>
+    <div id="links">
+      <a href="home.html" class="link">Home</a>
+      <a href="quiz.html" class="link">Quiz</a>
+      <a href="Store.html" class="link">Store</a>
+      <a href="#" class="link">Gallery</a>
+      <a href="comments.html" class="link">Comments</a>
+      <a href="aboutus.html" class="link active">About Us</a>
+      <a href="#" class="link">Sitemap</a>
+      <!-- hover bold fix -->
+      <script>
+        let navbar = document.getElementById("navbar");
+        navbar.addEventListener("click", ev => {
+          if (navbar.classList.contains("fold") && !ev.target.classList.contains("link")) {
+            navbar.classList.toggle("hidden");
+          }
+        })
+        if (window.innerWidth < 500) {
+          navbar.classList.add("fold", "hidden");
+        }
+        window.addEventListener("resize", ev => {
+          if (window.innerWidth < 500) {
+            navbar.classList.add("fold", "hidden");
+          } else {
+            navbar.classList.remove("fold", "hidden");
+          }
+        })
+        Array.from(document.getElementsByClassName('link')).forEach(link => link.dataset.label = link.innerText)
+      </script>
+    </div>
+  </div>
+  <!-- the main content of the page -->
+  <div class="content">
+    <div class="container">
+    
+      <div class="gallery">
+        <div class="img-box">
+          <div class="about">
+            <p>Senuth De Silva</p>
+            <p>ID: 20220677/w1999495</p><br>
+            <h3>Student 1</h3>
+          </div>
+        </div>
+        <div class="img-box">
+          <div class="about">
+            <p>Sehandu Thevnura Malawaraarachchi</p>
+            <p>ID: 20220667/w1998882</p><br>
+            <h3>Student 2</h3>
+          </div>
+        </div>
+        <div class="img-box">
+          <div class="about">
+            <p>Reshein Bastians</p>
+            <p>ID: 20222179/w1985736</p><br>
+            <h3>Student 3</h3>
+          </div>
+        </div>
+        <div class="img-box">
+          <div class="about">
+            <p>Piyami Pansiluni</p>
+            <p>ID: 20220671/w19998867</p><br>
+            <h3>Student 4</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--footer of the page-->
+  <footer id="footer">
+    Created by : <span class="footerName"> <a href="editors/Reshein.html"> <u>  Reshein Bastians   </u></a></span> <br>Student id :
+      20222179
+  </footer>
+
+</body>
+</html> 

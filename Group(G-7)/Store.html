@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+	      <meta charset="UTF-8">
+		  <meta name="description" content="web design and developement coursework">
+		  <meta name="keywords" content="Buy Products">
+		  <link rel="stylesheet" href="global.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		  <title>Shop</title>
+
+		  
+		  <style>
+			.heading {
+				font-weight: bold;
+				font-size: larger;
+			}
+	
+			/* === PRODUCTS ===*/
+	
+			#product-list {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 1em;
+			}
+	
+			.product {
+				background-color: var(--surface);
+				padding: 1em;
+				border-radius: 1em;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				gap: 1em;
+			}
+	
+			.product .title {
+				font-weight: bold;
+			}
+	
+			.product img {
+				filter: sepia(100%) hue-rotate(calc(var(--tint) * 1deg));
+				border-radius: 1em;
+			}
+	
+			.product .info {
+				display: flex;
+				flex-direction: row;
+				gap: 1em;
+				align-items: center;
+				justify-content: space-between;
+				width: 100%;
+			}
+	
+			.product .info .quantity {
+				max-width: 5em;
+				text-align: right;
+			}
+	
+			/* === CHECKOUT CONTAINER === */
+	
+			.checkout-container {
+				display: flex;
+				flex-direction: row;
+				flex-wrap: wrap;
+				gap: 1em;
+			}
+	
+			/* === CHECKOUT === */
+	
+			#checkout-form {
+				background-color: var(--surface);
+				padding: 1em;
+				border-radius: 1em;
+				display: flex;
+				flex-direction: column;
+				gap: 1em;
+				width: fit-content;
+			}
+	
+			input, textarea {
+				background-color: hsl(var(--tint), 20%, 80%);
+				color: var(--foreground);
+				border: none;
+				outline: none;
+				border-radius: 1em;
+				padding: 0.5em;
+			}
+	
+			input:focus, textarea:focus {
+				border: none;
+				background-color: hsl(var(--tint), 100%, 90%);
+			}
+	
+			.checkout-input {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				gap: 1em;
+			}
+	
+			.checkout-input textarea {
+				font-family: inherit;
+				color: inherit;
+			}
+	
+			#checkout-form button[type=submit] {
+				background-color: hsl(var(--tint), 25%, 50%);
+				color: hsl(var(--tint), 100%, 85%);
+				font-weight: bold;
+				border-radius: 1em;
+				padding: 1em;
+				border: none;
+				transition: background-color, color 250ms ease-in-out;
+			}
+	
+			#checkout-form button:hover {
+				background-color: hsl(var(--tint), 25%, 60%);
+				cursor: pointer;
+			}
+	
+			/* === INVOICE === */
+	
+			.invoice:empty {
+				display: none;
+			}
+	
+			.invoice:not(:empty) {
+				flex-grow: 1;
+				display: flex;
+				flex-direction: column;
+				background-color: var(--surface);
+				border-radius: 1em;
+				padding: 1em;
+			}
+	
+			.invoice .header .heading {
+				text-align: center;
+			}
+	
+			.invoice .header hr {
+				width: 50%;
+				margin-bottom: 1em;
+			}
+			.container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    background-color: #0e0f0f;
+    opacity:0.75;
+  }
+  .container-products {
+    max-width: 1100px;
+    margin: auto;
+    padding: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+    color : rgb(8, 7, 7);
+  }
+  
+  form {
+    display: grid;
+    grid-gap: 10px;
+    color : rgb(8, 8, 8);
+  }
+  
+  label {
+    display: block;
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  textarea {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #0e0c0c;
+    border-radius: 4px;
+    box-sizing: border-box;
+  
+  }
+  
+  button[type="submit"] {
+    padding: 10px 20px;
+    background-color: #0d0e0d;
+    color: #070606;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #090a09;
+  }
+  
+	
+		</style>
+	</head>
+	<body>
+		<script>
+			document.body.style.setProperty('--tint', Math.floor(Math.random() * 360).toString())
+		</script>
+		<div id="navbar">
+			<div class="logo"></div>
+			<div class="separator"></div>
+			<div id="links">
+				<a href="home.html" class="link">Home</a>
+				<a href="quiz.html" class="link">Quiz</a>
+				<a href="store.html" class="link active">Store</a>
+				<a href="#" class="link">Gallery</a>
+				<a href="comments.html" class="link">Comments</a>
+				<a href="aboutus.html" class="link">About Us</a>
+				<a href="#" class="link">Sitemap</a>
+				<!-- hover bold fix -->
+				<script>
+					let navbar = document.getElementById("navbar");
+					navbar.addEventListener("click", ev => {
+						if (navbar.classList.contains("fold") && !ev.target.classList.contains("link")) {
+							navbar.classList.toggle("hidden");
+						}
+					})
+					if (window.innerWidth < 800) {
+						navbar.classList.add("fold", "hidden");
+					}
+					window.addEventListener("resize", ev => {
+						if (window.innerWidth < 800) {
+							navbar.classList.add("fold", "hidden");
+						} else {
+							navbar.classList.remove("fold", "hidden");
+						}
+					})
+					Array.from(document.getElementsByClassName('link')).forEach(link => link.dataset.label = link.innerText)
+				</script>
+			</div>
+		</div>
+			<!--Product listing on the shop-->
+<table>	
+ <tr>
+    <td><div id="Guitar">
+					<h2>Guitar</h2>
+					<img src="img/Guitar.jpg" alt="Yamaha Guitar" style="width:22%">
+					<div class="pro">Guitar.</div>
+					<div class="pro">$ 500.00</div>
+					<div class="amount">Quantity<input type="number" placeholder="0" id="Qty1" min="0"></div>
+				</div></td>
+    <td><div id="Piano">
+					<h2>Piano</h2>
+					<img src="img/Piano.jpeg" alt="Yamaha piano" style="width:22%">
+					<div class="pro">Yamaha Piano.</div>	
+					<div class="pro">$ 8000.00</div>
+					<div class="amount">Quantity<input type="number" placeholder="0" id="Qty2" min="0"></div>
+				</div></td>
+				   <td><div id="Drum pad controller">
+					<h2>Drum Pad Controller</h2>
+					<img src="img/Drum Pad Controller.jpg" alt="roland Drum and controller" style="width:22%">
+					<div class="pro">roland drum pad controller.</div>	
+					<div class="pro">$ 980.00</div>
+					<div class="amount">Quantity<input type="number" placeholder="0" id="Qty3" min="0"></div>
+				</div></td>
+				
+  </tr>
+  <tr>
+  <td><div id="Drums">
+					<h2>Drums</h2>
+					<img src="img/Drums.webp" alt="DSC Defender Cricket Helmet" style="width:22%">
+					<div class="pro">pearl drum.</div>	
+					<div class="pro">$ 1560.00</div>
+					<div class="amount"> Quantity <input type="number" placeholder="0" id="Qty4" min="0"></div>
+				</div></td>
+
+    <td><div id="violin">
+					<h2> Violin</h2>
+					<img src="img/Violin.jpg" alt="Cecilio Violin Brand" style="width:22%">
+					<div class="pro">Cecilion Violin Brand.</div>	
+					<div class="pro">$ 860.00</div>
+					<div class="amount">Quantity<input type="number" placeholder="0" id="Qty5" min="0"></div>
+				</div></td>
+				<td><div id="cello">
+					<h2 id="head7">Cello</h2>
+					<img src="img/Cello.webp" alt="Yamaha Cello" style="width:22%">
+					<div class="pro" id="pro16">Yamaha Cello.</div>	
+					<div class="pro" id="pro17">$ 480.00</div>
+					<div class="amount" id="pro18"> Quantity <input type="number" placeholder="0" id="Qty6" min="0"></div>
+				</div></td>
+  </tr>
+  <tr>
+    <td><div id="Flute">
+					<h2>Flute</h2>
+					<img src="img/Flute.jpeg" alt="Miyazawa Flut" style="width:22%">
+					<di	v class="pro">Miyazawa Flute.</div>	
+					<div class="pro">$ 1800.00</div>
+					<div class="amount"> Quantity <input type="number" placeholder="0" id="Qty7" min="0"></div>
+				</div></td>
+        <td><div id="Saxophone">
+					<h2>Saxophone</h2>
+					<img src="img/Saxophone.jpeg" alt="Yamaha Saxophone." style="width:22%">
+					<div class="pro">Yamaha Saxophone.</div>
+					<div class="pro">$ 250.00</div>
+					<div class="amount">Quantity<input type="number" placeholder="0" id="Qty8" min="0"></div>
+				</div></td>
+				<td><div id="electric bass">
+					<h2 id="head8">Electric bass</h2>
+					<img src="img/Electric bass.jpg" alt="Yamaha Electric bass" style="width:22%">
+					<div class="pro">Yamaha Electric bass.</div>	
+					<div class="pro">$ 4250.00</div>
+					<div class="amount"> Quantity <input type="number" placeholder="0" id="Qty9" min="0"></div>
+				</div></td>
+  </tr>	
+</table>
+</div>
+		<!--Checkout and contact information-->
+		<hr style="margin: 2.5em">
+		<!--Checkout and contact information-->
+		<div class="checkout-container">
+			<form id="checkout-form">
+				<h2>Checkout</h2>
+				<div class="heading">Billing Information</div>
+	
+				<div class="checkout-input">
+					<label for="card-number">Credit Card Number:</label>
+					<input type="text" id="card-number" name="card-number" pattern="[0-9]{16}" required>
+				</div>
+				<div class="checkout-input">
+					<label for="cardholder-name">Cardholder Name:</label>
+					<input type="text" id="cardholder-name" name="cardholder-name" required>
+				</div>
+				<div class="checkout-input">
+					<label for="expiry-date">Expiry Date (MM/YY):</label>
+					<input type="text" id="expiry-date" name="expiry-date" pattern="(0[1-9]|1[0-2])\/[0-9]{2}" required>
+				</div>
+	
+				<div class="checkout-input">
+					<label for="cvv">CVV Number:</label>
+					<input type="text" id="cvv" name="cvv" pattern="[0-9]{3}" required>
+				</div>
+	
+				<div class="heading">Contact Information</div>
+				<div class="checkout-input">
+					<label for="name">Name:</label>
+					<input type="text" id="name" name="name" required>
+				</div>
+				<div class="checkout-input">
+					<label for="email">Email:</label>
+					<input type="email" id="email" name="email" required>
+				</div>
+				<div class="checkout-input">
+					<label for="phone-number">Phone Number:</label>
+					<input type="tel" id="phone-number" name="phone-number" pattern="[0-9]{10}" required>
+				</div>
+				<div class="checkout-input">
+					<label for="address">Address:</label>
+					<textarea id="address" name="address" required></textarea>
+				</div>
+	
+				<button type="submit">Place Order</button>
+			</form>
+			<div class="invoice" id="invoice"></div>
+		</div>
+	<!--Printing the invoice using JavaScript-->
+	 <script>// Validate credit card number
+		var cardNumberInput = document.getElementById("card-number");
+		cardNumberInput.addEventListener("input", function() {
+		  var cardNumber = cardNumberInput.value.replace(/\D/g, "");
+		  if (cardNumber.length !== 16) {
+			cardNumberInput.setCustomValidity("Credit card number must be 16 digits long");
+		  } else {
+			cardNumberInput.setCustomValidity("");
+		  }
+		});
+		
+		// Validate expiry date
+		var expiryDateInput = document.getElementById("expiry-date");
+		expiryDateInput.addEventListener("input", function() {
+		  var expiryDate = expiryDateInput.value.replace(/\D/g, "");
+		  if (expiryDate.length !== 4) {
+			expiryDateInput.setCustomValidity("Expiry date must be in the format MM/YY");
+		  } else {
+			expiryDateInput.setCustomValidity("");
+		  }
+		});
+		
+		// Validate CVV number
+		var cvvInput = document.getElementById("cvv");
+		cvvInput.addEventListener("input", function() {
+		  var cvv = cvvInput.value.replace(/\D/g, "");
+		  if (cvv.length !== 3) {
+			cvvInput.setCustomValidity("CVV number must be 3 digits long");
+		  } else {
+			cvvInput.setCustomValidity("");
+		  }
+		});
+		
+		// Validate phone number
+		var phoneNumberInput = document.getElementById("phone-number");
+		phoneNumberInput.addEventListener("input", function() {
+		  var phoneNumber = phoneNumberInput.value.replace(/\D/g, "");
+		  if (phoneNumber.length !== 10) {
+			phoneNumberInput.setCustomValidity("Phone number must be 10 digits long");
+		  } else {
+			phoneNumberInput.setCustomValidity("");
+		  }
+		});
+		</script>
+	 <script>
+		const form = document.getElementById('checkout-form');
+		form.addEventListener('submit', function(event) {
+			event.preventDefault();
+			const invoiceDiv = document.getElementById('invoice');
+			const name = document.getElementById('name').value;
+			const email = document.getElementById('email').value;
+			const phoneNumber = document.getElementById('phone-number').value;
+			const Qty1 = parseInt(document.getElementById('Qty1').value) || 0;
+			const Qty2 = parseInt(document.getElementById('Qty2').value) || 0;
+			const Qty3 = parseInt(document.getElementById('Qty3').value) || 0;
+			const Qty4 = parseInt(document.getElementById('Qty4').value) || 0;
+			const Qty5 = parseInt(document.getElementById('Qty5').value) || 0;
+			const Qty6 = parseInt(document.getElementById('Qty6').value) || 0;
+			const Qty7 = parseInt(document.getElementById('Qty7').value) || 0;
+			const Qty8 = parseInt(document.getElementById('Qty8').value) || 0;
+			const Qty9 = parseInt(document.getElementById('Qty9').value) || 0;
+			const address = document.getElementById('address').value;
+			
+			// Calculate total price for each product
+			const price1 = Qty1 * 500;
+			const price2 = Qty2 * 8000;
+			const price3 = Qty3 * 980;
+			const price4 = Qty4 * 1560;
+			const price5 = Qty5 * 860;
+			const price6 = Qty6 * 480;
+			const price7 = Qty7 * 1800;
+			const price8 = Qty8 * 250;
+			const price9 = Qty9 * 4250;
+			
+			// Calculate the total bill
+			const totalBill = price1 + price2 + price3 + price4 + price5 + price6 + price7 + price8 + price9;
+			
+			// Generate the invoice HTML
+			const invoiceHTML = `
+				<h2>Invoice</h2>
+				<h2>---------------------------</h2>
+				<p>Name: ${name}</p>
+				<p>Email: ${email}</p>
+				<p>Phone Number: ${phoneNumber}</p>
+				<h3>Products:</h3>
+				${Qty1 > 0 ? `<p>Product: Guitar, Quantity: ${Qty1}, Price: $${price1}</p>` : ''}
+				${Qty2 > 0 ? `<p>Product: Yamaha Piano, Quantity: ${Qty2}, Price: $${price2}</p>` : ''}
+				${Qty3 > 0 ? `<p>Product: Roland Drum Pad Controller, Quantity: ${Qty3}, Price: $${price3}</p>` : ''}
+				${Qty4 > 0 ? `<p>Product: Pearl Drum, Quantity: ${Qty4}, Price: $${price4}</p>` : ''}
+				${Qty5 > 0 ? `<p>Product: Cecilion Violin Brand, Quantity: ${Qty5}, Price: $${price5}</p>` : ''}
+				${Qty6 > 0 ? `<p>Product: Yamaha Cello, Quantity: ${Qty6}, Price: $${price6}</p>` : ''}
+				${Qty7 > 0 ? `<p>Product: Miyazawa Flute, Quantity: ${Qty7}, Price: $${price7}</p>` : ''}
+				${Qty8 > 0 ? `<p>Product: Yamaha Saxophone, Quantity: ${Qty8}, Price: $${price8}</p>` : ''}
+				${Qty9 > 0 ? `<p>Product: Yamaha Electric Bass, Quantity: ${Qty9}, Price: $${price9}</p>` : ''}
+				<h4>Total bill: </h4>
+				<p>$${totalBill}</p>
+			`;
+			
+			invoiceDiv.innerHTML = invoiceHTML;
+		});
+	</script>
+	 
+	 <!--footer of the page-->
+		<footer>
+			<p >Created by : <span class="footerName"> <a href="/editors/Senutheditor.html"> <u>  Senuth De Silva   </u></a></span>  <br>Student id : 20220677
+				   last modified date : 7/20/2023</p>
+				   <a class="top" href="#">Back to top</a>
+		</footer>
+			
+	</body>
+</html>

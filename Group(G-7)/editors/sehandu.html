@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Editor - Sehandu</title>
+	<link rel="stylesheet" href="../global.css">
+	<style>
+		.card-container {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 1em;
+		}
+
+		h1, h2 {
+			margin: 0;
+		}
+
+		.card {
+			text-decoration: none;
+			color: inherit;
+			display: flex;
+			flex-direction: column;
+			background: var(--surface);
+			gap: 1em;
+			padding: 1.5em;
+			border-radius: 1em;
+			width: 60vw;
+		}
+
+		@media screen and (max-width: 600px) {
+			.card {
+				width: calc(100% - (2em + 2em));
+				margin: 2em;
+			}
+		}
+
+		.card .title {
+			font-weight: bold;
+			font-size: 1.25em;
+		}
+
+		.card .quote {
+			font-style: italic;
+			border-left: solid 3px;
+			padding-left: 0.5em;
+		}
+
+		.card a {
+			color: inherit;
+		}
+
+		.card a:hover {
+			text-decoration-thickness: 3px;
+		}
+
+		.card code {
+			background: hsl(var(--tint), 25%, 65%);
+			padding: 0.5em;
+			border-radius: 0.5em;
+		}
+
+		.info {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 1em;
+		}
+
+		.info > * {
+			display: flex;
+			align-items: center;
+			gap: 0.25em;
+		}
+
+		.aside {
+			font-size: 10px;
+		}
+
+		table.inline-table {
+			display: inline;
+			border-collapse: collapse;
+		}
+
+		table.inline-table td {
+			padding: 0.2em;
+			border: dotted var(--foreground) 2px;
+		}
+	</style>
+</head>
+
+<body>
+<script>
+	document.body.style.setProperty('--tint', Math.floor(Math.random() * 360).toString())
+</script>
+
+<div id="navbar">
+	<div class="logo"></div>
+	<div class="separator"></div>
+	<div id="links">
+		<a href="../home.html" class="link">Home</a>
+		<a href="#" class="link">Quiz</a>
+		<a href="#" class="link">Store</a>
+		<a href="#" class="link">Gallery</a>
+		<a href="../comments.html" class="link">Comments</a>
+		<a href="#" class="link">About Us</a>
+		<a href="#" class="link">Sitemap</a>
+	</div>
+	<script>
+		let navbar = document.getElementById("navbar");
+		navbar.addEventListener("click", ev => {
+			if (navbar.classList.contains("fold") && !ev.target.classList.contains("link")) {
+				navbar.classList.toggle("hidden");
+			}
+		})
+		if (window.innerWidth < 800) {
+			navbar.classList.add("fold", "hidden");
+		}
+		window.addEventListener("resize", ev => {
+			if (window.innerWidth < 800) {
+				navbar.classList.add("fold", "hidden");
+			} else {
+				navbar.classList.remove("fold", "hidden");
+			}
+		})
+		// hover bold fix
+		Array.from(document.getElementsByClassName('link')).forEach(link => link.dataset.label = link.innerText)
+	</script>
+</div>
+
+<div id="content">
+	<div class="card-container">
+		<div class="info">
+			<h1>Hello, I'm Sehandu!</h1>
+			<span>And I'm in charge of the <span style="font-weight: bold">Student 2</span>'s role.</span>
+			<div>Index Number
+				<table class="inline-table">
+					<tr>
+						<td>20220667</td>
+						<td>w1998882</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="card">
+			<h2 class="title">The Navigation Bar</h2>
+			<span class="quote">"You mean you made that beautiful thing on the top of the page?"</span>
+			Yup, all me! Aren't I great? It works on mobile too!
+		</div>
+		<div class="card">
+			<h2 class="title">The Home Page</h2>
+			And before you ask, no, I'm not lying. As I said already, I'm amazing.
+			<span class="aside">(Positive affirmations don't take away depression it seems... Really
+				hoped it'd work...)</span>
+			<span><a href="../home.html">Here's</a> a link, by the way, if you haven't seen my work of <span
+				style="text-shadow: var(--foreground) -1px 1px;">✨ art ✨</span>.</span>
+		</div>
+		<div class="card">
+			<h2 class="title">The Comments/Feedback Page</h2>
+			<span>Okay, maybe not the best work of art, but it still looks consistent and pretty!</span>
+			<span>I just didn't have much to work with. <code>input</code> doesn't allow much customisation. </span>
+			<span>And <a href="../comments.html">here's</a> a link to that as well.</span>
+		</div>
+		<div class="card">
+			<h2>The Content Page - <span style="font-style: italic">Electronic Music</span></h2>
+			<span>Yup, this uses the exact same design style too.</span>
+			<span>I heard someone say that <span style="font-weight: bold">"Consistency is key"</span>.</span>
+			<span>Also, <span
+				style="font-weight: 600">Flume</span> has amazing music. You should listen to his songs.</span>
+			<span>Anyway, <a href="../content/electronic.html">here's</a> a link to that page.</span>
+		</div>
+		<div class="card">
+			<h2>The Editor Page</h2>
+			<div class="quote">"Self-references. How innovative..."</div>
+			<span>YES! IT IS INNOVATIVE, ISN'T IT? THANK YOU FOR NOTICING!</span>
+			<span>If you want a link even for this, then <a
+				href="https://youtu.be/dQw4w9WgXcQ">here's</a> a link.</span>
+		</div>
+	</div>
+</div>
+
+<footer>
+	This page was edited by <a href="#">Sehandu Thevnura Malawaraarachchi</a>.
+	<a class="top" href="#">Back to top</a>
+</footer>
+</body>
+
+</html>

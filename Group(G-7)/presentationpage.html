@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="refresh" content="4 URL='home.html'">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="global.css">
+    <title>Presentation page</title>
+    <style>
+        *{
+            margin:  0%;
+            padding: 0%;
+            box-sizing: border-box;
+        }
+        .head{
+            width: fit-content;
+            margin: auto;
+            margin-top: 160px;
+            font-size: 35px;
+        }
+        .members{
+            width: 360px;
+            margin: auto;
+            margin-top: 30px
+        }
+        .members li{
+            font-size: 16px;
+        }
+
+        @import "compass/css3";
+
+        
+        .loader div {
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        background-color: #3ca1a5;
+        top:250px;
+        border-radius: 50%;
+        }
+
+        .loader div:nth-child(1) {
+        background-color: #c53e47;
+        animation: move 2s infinite cubic-bezier(.2,.64,.81,.23);
+        }
+        .loader div:nth-child(2) {
+        background-color: #FF9D84;
+        animation: move 2s 150ms infinite cubic-bezier(.2,.64,.81,.23);
+        }
+        .loader div:nth-child(3) {
+        background-color: #F0E797;
+        animation: move 2s 300ms infinite cubic-bezier(.2,.64,.81,.23);
+        }
+        .loader div:nth-child(4) {
+        background-color: #1cd85e;
+        animation: move 2s 450ms infinite cubic-bezier(.2,.64,.81,.23);
+        }
+        @keyframes move {
+        0% {left: 0%;}
+        100% {left:100%;}
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="head">
+        <h1 class="logo"></h1>
+    </div>
+    <div class="loader">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div class="members">
+        <ul>
+            <li><i>Senuth De Silva :  20220677 - Student 1</i></li>
+            <li><i>Sehandu Thevnuwara:20220333 - Student 2</i></li>
+            <li><i>reshein Bashthian: 20220388 - Student 3</i></li>
+            <li><i>piyami pansiluni : 20220473 - Student 4</i></li>
+        </ul>
+    </div>
+
+ </body>
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Home</title>
+	<link rel="stylesheet" href="global.css">
+	<style>
+		.card-container {
+			display: flex;
+			flex-direction: column;
+			gap: 1em;
+		}
+
+		.card {
+			text-decoration: none;
+			color: inherit;
+			display: flex;
+			flex-direction: column;
+			background: var(--surface);
+			gap: 1em;
+			padding: 1.5em;
+			border-radius: 1em;
+			width: 60vw;
+		}
+
+		.card:hover {
+			background: hsl(var(--tint), 35%, 80%);
+		}
+
+		.card:nth-child(even) {
+			margin-left: auto;
+		}
+
+		.card .title {
+			font-weight: bold;
+			font-size: 1.25em;
+		}
+
+		.card .body {
+			display: flex;
+			flex-direction: row;
+			gap: 1em;
+		}
+
+		.card:nth-child(even) .body {
+			flex-direction: row-reverse;
+		}
+
+		@media screen and (max-width: 500px) {
+			.card .body {
+				flex-direction: column !important;
+			}
+		}
+
+		@media screen and (max-width: 800px) {
+			.card {
+				width: auto;
+				margin-left: 0 !important;
+			}
+		}
+
+		.card .thumbnail {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+		}
+
+		.card .thumbnail img {
+			width: 250px;
+			height: 250px;
+			object-fit: cover;
+			flex-grow: 1;
+			border-radius: 1em;
+		}
+
+		.card .body .summary {
+			align-self: center;
+			text-align: justify;
+		}
+
+		img.tinted {
+			filter: sepia(100%) hue-rotate(calc(var(--tint) * 1deg));
+		}
+	</style>
+</head>
+
+<body>
+<script>
+	document.body.style.setProperty('--tint', Math.floor(Math.random() * 360).toString())
+</script>
+
+<div id="navbar">
+	<div class="logo"></div>
+	<div class="separator"></div>
+	<div id="links">
+		<a href="home.html" class="link active">Home</a>
+      <a href="quiz.html" class="link">Quiz</a>
+      <a href="Store.html" class="link">Store</a>
+      <a href="#" class="link">Gallery</a>
+      <a href="comments.html" class="link">Comments</a>
+      <a href="aboutus.html" class="link">About Us</a>
+      <a href="#" class="link">Sitemap</a>
+	</div>
+	<script>
+		let navbar = document.getElementById("navbar");
+		navbar.addEventListener("click", ev => {
+			if (navbar.classList.contains("fold") && !ev.target.classList.contains("link")) {
+				navbar.classList.toggle("hidden");
+			}
+		})
+		if (window.innerWidth < 800) {
+			navbar.classList.add("fold", "hidden");
+		}
+		window.addEventListener("resize", ev => {
+			if (window.innerWidth < 800) {
+				navbar.classList.add("fold", "hidden");
+			} else {
+				navbar.classList.remove("fold", "hidden");
+			}
+		})
+		// hover bold fix
+		Array.from(document.getElementsByClassName('link')).forEach(link => link.dataset.label = link.innerText)
+	</script>
+</div>
+
+<div id="content">
+	<div class="card-container">
+		<a class="card" href="content/rnb.html">
+			<div class="title">Rhythm and Blues</div>
+			<div class="body">
+				<div class="thumbnail">
+					<img src="img/rnb.jpg" alt="Image of a music" class="tinted"
+						 loading="lazy">
+				</div>
+				<p class="summary">
+					Embark on a musical journey through the captivating world of R&B (Rhythm and Blues) Music!
+					Originating in African-American communities during the 1940s, R&B has become a timeless genre known
+					for its soulful melodies and expressive lyrics. Over the years, it has evolved and influenced
+					various music styles. Explore the rich history and evolution of R&B, from its early roots to
+					contemporary artists. Discover the heartfelt emotions and powerful storytelling that have made R&B a
+					beloved genre worldwide. Immerse yourself in the enchanting melodies and soul-stirring rhythms of
+					R&B Music.
+				</p>
+			</div>
+		</a>
+		<a class="card" href="content/electronic.html">
+			<div class="title">Electronic</div>
+			<div class="body">
+				<div class="thumbnail">
+					<img src="img/electronic.jpg" alt="Image of a music" class="tinted"
+						 loading="lazy">
+				</div>
+				<p class="summary">
+					Discover the mesmerising world of Electronic Music! Emerging in the late 1960s and gaining global
+					popularity in the 1980s, this genre utilises electronic devices like synths and drum machines. It
+					has revolutionised music production and performance, leaving a profound impact on various art forms.
+					Delve into diverse subgenres such as House, Techno, Trap, Dubstep, DnB, Future Bass, Lo-fi, Ambient,
+					and Experimental, each offering a unique musical experience. Join the journey of innovation and
+					creativity in Electronic Music
+				</p>
+			</div>
+		</a>
+		<a class="card" href="content/HipHop.html">
+			<div class="title">Hip Hop</div>
+			<div class="body">
+				<div class="thumbnail">
+					<img src="img/hiphop.jpg" alt="Image of hiphop" class="tinted"
+						 loading="lazy">
+				</div>
+				<p class="summary">
+					Discover the cultural force of Hip-Hop, an influential music genre originating from
+					the Bronx in the 1970s. Explore its rhythmic rhymes, DJ rhythms, break-dancing, and graffiti art,
+					leaving a lasting impact on global culture. Hip-Hop has transformed from music to a social movement,
+					addressing issues like racial injustice and poverty. Learn about pioneers like DJ Kool Herc and
+					modern icons like Kendrick Lamar, inspiring innovation worldwide.
+				</p>
+			</div>
+		</a>
+		<a class="card" href="#">
+			<div class="title">Lorem Ipsum</div>
+			<div class="body">
+				<div class="thumbnail">
+					<img src="https://source.unsplash.com/200x200/" alt="Random image" class="tinted"
+						 loading="lazy">
+				</div>
+				<p class="summary">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut porttitor, augue id pharetra ultricies,
+					eros justo vehicula risus, nec finibus enim sem nec dolor. Pellentesque habitant morbi tristique
+					senectus et netus et malesuada fames ac turpis egestas. Donec rhoncus venenatis arcu, eu
+					pellentesque dolor eleifend ac. Pellentesque pellentesque laoreet egestas.
+				</p>
+			</div>
+		</a>
+	</div>
+</div>
+
+<footer>
+	This page was edited by <a href="editors/sehandu.html">Sehandu Thevnura Malawaraarachchi</a>.
+	<a class="top" href="#">Back to top</a>
+</footer>
+</body>
+
+</html>

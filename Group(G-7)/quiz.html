@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- links for the nav -->
+    
+    <link rel="stylesheet" href="global.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Fasthand&family=Inter&display=swap" rel="stylesheet">
+
+    <title>quiz</title>
+    <!-- stylesheet -->
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+        .content {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--background);
+            background-size: cover;  
+        }
+
+        /* Quiz game pannel */
+        .container{
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            background-color: var(--background);
+            padding: 30px;
+            overflow: hidden;
+            border-radius: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+        }
+
+
+        button{
+            width: 100%;
+            height: 60px;
+            background-color: var(--surface);
+            color: var(--foreground);
+            border: none;
+            border-radius: 100vw;
+            margin-top: 10px;
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s linear;
+        }
+        button:hover{
+            background-color: var(--accent);
+        }
+
+        .hide{
+            display: none;
+        }
+
+        /* Quiz questions */
+        .timer{
+            width: 100%;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+        .timer .progress{
+            position: relative;
+            width: 100%;
+            height: 40px;
+            background: transparent;
+            border-radius: 30px;
+            overflow: hidden;
+            margin-bottom: 10px;
+            border: 3px solid var(--foreground);
+        }
+        .timer .progress .progress-bar{
+            width: 100%;
+            height: 100%;
+            border-radius: 30px;
+            overflow: hidden;
+            background: linear-gradient(to right, #ea517c, #b478f1);
+            transition: 1s linear;
+        }
+        .timer .progress .progress-text{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color:  var(--foreground);
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .question-wrapper .number{
+            color: var(--foreground);
+            font-size: 25px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            float: right;
+        }
+        .question-wrapper .number .total{
+            color: var(--accent);
+            font-size: 18px;
+        }
+        .question-wrapper .question{
+            color: var(--foreground);
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        .answer-wrapper .answer{
+            width: 100%;
+            height: 60px;
+            padding: 20px;
+            border-radius: 10px;
+            color: var(--foreground);
+            border: 3px solid var(--foreground);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: 0.3s linear;
+        }
+        .answer .checkbox{
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            border-radius: 50%;
+            border: 3px solid var(--foreground);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+    
+        }
+        .answer .checkbox .icon{
+            opacity: 0;
+        }
+        .answer:hover .checkbox,
+        .answer.selected .checkbox{
+            background-color: var(--accent);
+            border-color: var(--foreground);
+        }
+        .answer.selected .checkbox .icon{
+            opacity: 1;
+        }
+        .answer.correct{
+            border-color: #0cef2a;
+        }
+        .answer.wrong{
+            border-color: #fc3939;
+        }
+        .question-wrapper,
+        .answer-wrapper{
+            margin-bottom: 50px;
+        }
+        .btn.next{
+            display: none;
+        }
+        .question-wrapper button.show{
+            opacity: 1;
+            pointer-events: auto;
+            transform: scale(1);
+        }
+        .end-screen .score{
+            color: var(--foreground);
+            font-size: 25px;
+            font-weight: 500;
+            margin-bottom: 80px;
+            text-align: center;
+        }
+        .end-screen .score-text{
+            color: #a2aace;
+            font-size: 16px;
+            margin-bottom: 120px;
+        }
+
+
+    </style>
+</head>
+<body onload="document.body.style.setProperty('--tint', Math.floor(Math.random() * 360).toString())">
+    
+    <!-- the nav bar done by student 2 -->
+    <div id="navbar">
+        <div class="logo"></div>
+        <div class="separator"></div>
+        <div id="links">
+            <a href="home.html" class="link">Home</a>
+            <a href="quiz.html" class="link active">Quiz</a>
+            <a href="Store.html" class="link">Store</a>
+            <a href="#" class="link">Gallery</a>
+            <a href="comments.html" class="link">Comments</a>
+            <a href="aboutus.html" class="link">About Us</a>
+            <a href="#" class="link">Sitemap</a>
+            <!-- hover bold fix -->
+            <script>
+                let navbar = document.getElementById("navbar");
+                navbar.addEventListener("click", ev => {
+                    if (navbar.classList.contains("fold") && !ev.target.classList.contains("link")) {
+                        navbar.classList.toggle("hidden");
+                    }
+                })
+                if (window.innerWidth < 500) {
+                    navbar.classList.add("fold", "hidden");
+                }
+                window.addEventListener("resize", ev => {
+                    if (window.innerWidth < 500) {
+                        navbar.classList.add("fold", "hidden");
+                    } else {
+                        navbar.classList.remove("fold", "hidden");
+                    }
+                })
+                Array.from(document.getElementsByClassName('link')).forEach(link => link.dataset.label = link.innerText)
+            </script>
+        </div>
+    </div>
+
+    <!-- the main content of the page -->
+    <div class="content">
+        <div class="container">
+            <!-- Start button -->
+            <div class="start_btn">
+                <button>Start Quiz</button>
+            </div>
+
+            <!-- initiate Quiz -->
+            <div class="quiz_box hide">
+                <!-- Question section -->
+                <div class="question-wrapper">
+                
+                    
+                    <div class="question">
+                    <!-- Here we enter the javascript code -->
+                    </div>
+                    <div class="timer">
+                        <div class="progress">
+                            <div class="progress-bar"></div>
+                            <span class="progress-text"></span>
+                        </div>
+                    </div>
+                    <div class="answer-wrapper">
+                        <!-- here we enter the JS cade for the options -->
+                    </div>
+                
+                    
+                    <div class="number">
+                        <span class="current"><!--add current question number here using JavaScript--></span><span>/</span><span class="total"><!--add total number of questions here using JavaScript--></span>
+                    </div>
+                    <button class="submit">Submit</button>
+                    <button class="next">Next</button>
+                </div>
+            </div>
+
+            <!-- final results -->
+            <div class="result_box hide">
+                <h1 class="heading">Quiz Game</h1>
+                <div class="timer">
+                    <p>Your Time is: <!--here the total time taken when the start button is clicked in the info box using JavaScript--></p>
+                </div>
+                <div class="score">
+                    <span class="score-text">Your Score:</span>
+                    <!-- here the score should go using JavaScript -->
+                </div>
+                <button class="btn restart">Restart Quiz</button>
+            </div>
+        </div>
+    </div>
+
+    <!--footer of the page-->
+    <footer id="footer">
+	    Created by : <span class="footerName"> <a href="editors/Reshein.html"> <u>  Reshein Bastians   </u></a></span> <br>Student id :
+		    20222179
+    </footer>
+       
+    <script>
+        // Get DOM elements
+        const startBtn = document.querySelector(".start_btn button");
+        const quizBox = document.querySelector(".quiz_box");
+        const resultBox = document.querySelector(".result_box");
+        const optionList = document.querySelector(".answer-wrapper");
+        const submitBtn = document.querySelector(".submit");
+        const nextBtn = document.querySelector(".next");
+        const restartBtns = document.querySelectorAll(".btn.restart");
+        const timer = document.querySelector(".timer .progress-bar");
+        const progressText = document.querySelector(".timer .progress-text");
+        const currentQuestionNum = document.querySelector(
+            ".question-wrapper .number .current"
+        );
+        const totalQuestions = document.querySelector(
+            ".question-wrapper .number .total"
+        );
+        const scoreText = document.querySelector(".score .score-text");
+        const timeText = document.querySelector(".timer p");
+
+// Quiz questions and options
+        const quizData = [
+        {
+            question:
+            "Question 1: Who composed the famous symphony 'Symphony No. 5 in C minor'?",
+            options: [
+            "Ludwig van Beethoven",
+            "Wolfgang Amadeus Mozart",
+            "Johann Sebastian Bach",
+            "Franz Schubert",
+            ],
+            answer: 0,
+        },
+        {
+            question:
+            "Question 2: Which musical instrument is commonly associated with jazz music?",
+            options: ["Saxophone", "Violin", "Piano", "Accordion"],
+            answer: 0,
+        },
+        {
+            question: "Question 3: Who is known as the 'King of Pop'?",
+            options: ["Michael Jackson", "Elvis Presley", "Madonna", "Stevie Wonder"],
+            answer: 0,
+        },
+        {
+            question:
+            "Question 4: Which musical genre originated in Jamaica and features offbeat rhythms and emphasis on the bass?",
+            options: ["Reggae", "Salsa", "Flamenco", "Jazz"],
+            answer: 0,
+        },
+        {
+            question:
+            "Question 5: Which artist released the album " +
+            "Thriller" +
+            " in 1982, which became the best-selling album of all time?",
+            options: ["Michael Jackson", "Madonna", "Prince", "Whitney Houston"],
+            answer: 0,
+         },
+        {
+            question: "Question 6: Who wrote the opera 'The Marriage of Figaro'?",
+            options: [
+            "Wolfgang Amadeus Mozart",
+            "Giuseppe Verdi",
+            "Richard Wagner",
+            "Giacomo Puccini",
+            ],
+             answer: 0,
+        },
+        {
+            question:
+            "Question 7: Which famous rock band released the album 'Dark Side of the Moon'?",
+            options: [
+            "Pink Floyd",
+            "The Beatles",
+            "Led Zeppelin",
+            "The Rolling Stones",
+            ],
+            answer: 0,
+        },
+        {
+            question: "Question 8: Who is known for his iconic song 'Imagine'?",
+            options: ["John Lennon", "Bob Dylan", "Paul McCartney", "David Bowie"],
+            answer: 0,
+        },
+        {
+            question:
+            "Question 9: Which classical composer is known for his famous piece 'Für Elise'?",
+            options: [
+            "Ludwig van Beethoven",
+            "Johann Strauss II",
+            "Frederic Chopin",
+            "Franz Joseph Haydn",
+            ],
+            answer: 0,
+        },
+        {
+             question:
+            "Question 10: What is the standard number of strings on a classical guitar?",
+            options: ["Six", "Four", "Eight", "Twelve"],
+            answer: 0,
+        }
+        ];
+
+        let questionIndex = 0;
+        let questionTimer;
+        let score = 0;
+        let startTime;
+        let endTime;
+
+// Start the quiz and timer
+        function startQuiz() {
+        startTime = new Date(); // This line initializes the startTime variable with the current date and time when the quiz starts.
+        quizBox.classList.remove("hide"); 
+        displayQuestion();
+        startTimer(); 
+        }
+
+// Event listeners for the start button
+        startBtn.addEventListener("click", function () {
+            this.style.display = "none";
+            startQuiz();
+        });
+
+// Handle option click
+        function handleOptionClick() {
+            const options = optionList.querySelectorAll(".answer");// selects all the elements with the class "answer" that are present inside the optionList element
+
+  
+            for (let i = 0; i < options.length; i++) {
+                options[i].addEventListener("click", function () {
+                    for (let j = 0; j < options.length; j++) { //iterates over all the answer options again (using another for loop) to find and remove the "selected" class from any option that already has it.
+                        if (options[j].classList.contains("selected")) {
+                            options[j].classList.remove("selected");
+                        }
+                    }
+                    options[i].classList.add("selected");// adds the "selected" class to the clicked answer option, highlighting the user's selection.
+                });
+            }
+
+            // The function adds a click event listener to the "Next" button 
+            nextBtn.addEventListener("click", function () {
+                clearInterval(questionTimer); // Stop the timer
+                timeValue = 60; // Reset the time for the next question
+                startTimer(); // Start the timer again
+            });
+
+            // The function adds a click event listener to the "Submit" button 
+            submitBtn.addEventListener("click", function () {
+                clearInterval(questionTimer); // Stop the timer
+                // Rest of the code for handling the answer submission
+                const selectedOption = optionList.querySelector(".answer.selected"); // checks if the user has selected any answer option (i.e., an option with the class "selected").
+                if (selectedOption) {
+                    const userAnswer = selectedOption.querySelector("span").textContent; // It retrieves the text content of the selected option (i.e., the user's answer).
+                    const correctAnswer = quizData[questionIndex].options[quizData[questionIndex].answer]; // It gets the correct answer for the current question from the quizData array.
+
+                    if (userAnswer === correctAnswer) { // compares the user's answer with the correct answer
+                        selectedOption.classList.add("correct"); // adds the "correct" class to the selected option to visually indicate that the answer is correct.
+                    } else {
+                    // adds the "wrong" class to the selected option and also adds the "correct" class to the correct answer option to indicate the correct answer.
+                        selectedOption.classList.add("wrong");
+                        optionList
+                        .querySelector(
+                            `.answer:nth-child(${quizData[questionIndex].answer + 1})`
+                        )
+                        .classList.add("correct");
+                    }
+
+                    // hides the "Submit" button (submitBtn) and displays the "Next" button (nextBtn) to allow the user to proceed to the next question.
+                    submitBtn.style.display = "none";
+                    nextBtn.style.display = "block";
+
+                }
+            });
+        }
+
+        // Start the timer
+        function startTimer() {
+
+            timeValue = 60; // Reset the time for each question
+
+            timer.style.width = "100%"; // sets the width of the timer's progress bar to "100%"
+            // setting the width to "100%", the progress bar is filled initially, indicating that the timer is at its full duration (60 seconds).
+
+            progressText.textContent = timeValue; // sets the text content of the element with the class .progress-text to the initial timeValue, which is 60 seconds.
+
+            // This line creates an interval timer using setInterval(). The interval timer calls the functions inside it every 1000 milliseconds (1 second) to update the timer's progress bar and text.
+            questionTimer = setInterval(function () {
+
+                timeValue--; // the timeValue is decremented by 1 every second, effectively reducing the remaining time for the current question.
+        
+                // updates the width of the timer's progress bar based on the remaining time (timeValue). It calculates the width as a percentage of the total time (60 seconds) and sets it as the new width. This dynamically reduces the width of the progress bar as the time decreases, creating a visual representation of the time running out.
+                timer.style.width = (timeValue / 60) * 100 + "%";
+
+                // updates the text content of the element with the class .progress-text to display the updated timeValue, which represents the remaining time in seconds.
+                 progressText.textContent = timeValue;
+                if (timeValue <= 0) { //  condition checks if the timeValue has reached or fallen below 0 seconds, indicating that the time for the current question has run out.
+                    clearInterval(questionTimer); // If the time reaches 0, the interval timer is cleared using clearInterval() to stop the countdown and prevent it from going into negative values.
+                    showResult(); // function is called to display the result because the time has run out for the current question.
+                }
+
+            }, 1000);
+        }
+
+        // Show next question
+        // this block is similar to the submit button click function but here it checks if the answer is correct and adds 1 to the score
+        function showNextQuestion() {
+            // this block is similar to the submit button click function but here it checks if the answer is correct and adds 1 to the score
+            // This line selects the answer option with the class "selected" within the optionList element. If a user has clicked and selected an answer option, the selectedOption variable will store a reference to that element
+            const selectedOption = optionList.querySelector(".answer.selected");
+            if (selectedOption) { 
+                const userAnswer = selectedOption.querySelector("span").textContent; 
+                const correctAnswer = 
+                quizData[questionIndex].options[quizData[questionIndex].answer];
+
+        
+                if (userAnswer === correctAnswer) {
+                    selectedOption.classList.add("correct"); 
+                    score++; // The score variable is incremented to track the number of correct answers the user has provided.
+                } else {
+                    selectedOption.classList.add("wrong"); 
+                    optionList.querySelector(
+                        `.answer:nth-child(${quizData[questionIndex].answer + 1})`
+                    ).classList.add("correct");
+                }
+            }
+
+            // The questionIndex is incremented to move to the next question.
+            questionIndex++;
+            if (questionIndex < quizData.length) { // condition checks if there are more questions to display 
+                displayQuestion(); //  if true show the next question
+            } else {
+                clearInterval(questionTimer); // The interval timer (questionTimer) is cleared
+                showResult(); // show the results
+            }
+        }
+
+        // Display question and options
+        function displayQuestion() {
+            currentQuestionNum.textContent = questionIndex + 1; // updates the text content of the element with the class .current to display the current question number.
+            totalQuestions.textContent = quizData.length; // updates the text content of the element with the class .total to display the total number of questions in the quiz.
+            const question = quizData[questionIndex]; // retrieves the current question object from the quizData array using the questionIndex
+    
+            //  sets the inner HTML of the element with the class .question to display the current question's text.
+            document.querySelector(
+                 ".question-wrapper .question"
+            ).innerHTML = `<h2>${question.question}</h2>`;
+
+            optionList.innerHTML = ""; // clears the content of the optionList element, which is the container that holds the answer options for the current question
+            for (let i = 0; i < question.options.length; i++) { 
+                const option = document.createElement("div"); 
+                option.className = "answer"; 
+                option.innerHTML = `
+                    <span>${question.options[i]}</span>
+                    <div class="checkbox">   
+                    </div>
+                `;
+                optionList.appendChild(option); 
+            }
+
+            handleOptionClick();// function to set up event listeners for the answer options
+            submitBtn.style.display = "block"; 
+            nextBtn.style.display = "none";
+  
+        }
+
+        // Show quiz result
+        function showResult() {
+            endTime = new Date(); // Set the end time
+            quizBox.classList.add("hide");
+            resultBox.classList.remove("hide");
+            scoreText.textContent = `Your Score: ${score}/${quizData.length}`; // updates the text content of the element with the class .score-text to display the user's score and the total number of questions in the quiz
+            const totalTimeTaken = (endTime - startTime) / 1000; // Calculate total time taken in seconds
+            timeText.textContent = `Total Time Taken: ${totalTimeTaken} seconds`; // display the total time taken
+        }
+
+        // Event listeners for next button
+        nextBtn.addEventListener("click", showNextQuestion);
+
+        // Event listeners for restart buttons
+        restartBtns.forEach(function (btn) {
+            btn.addEventListener("click", function () {// when clicked it resets everthing
+                questionIndex = 0;
+                timeValue = 60;
+                score = 0;
+                startBtn.style.display = "block";
+                resultBox.classList.add("hide");
+                progressText.textContent = timeValue;
+                timer.style.width = "100%";
+                timeText.textContent = "";
+            });
+        });
+
+    </script>
+</body>
+</html>

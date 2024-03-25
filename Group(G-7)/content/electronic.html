@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+		  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Electronic Music</title>
+	<link rel="stylesheet" href="../global.css">
+	<style>
+		html {
+			scroll-behavior: smooth;
+		}
+
+		body {
+			/* ChatGPT said neon green represents Electronic Music well... ¯\_(ツ)_/¯ */
+			--tint: 120;
+		}
+
+		#navbar {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: calc(100vw - 2vw - 5vw);
+			z-index: 2;
+		}
+
+		#content {
+			margin: 0;
+		}
+
+		.hero {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			position: relative;
+			height: 50vh;
+			width: 100vw;
+		}
+
+		.hero .hero-img {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			z-index: -2;
+		}
+
+		.hero .hero-img-overlay {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			background-color: hsla(var(--tint), 100%, 50%, 10%);
+			backdrop-filter: brightness(60%) blur(5px);
+			z-index: -1;
+		}
+
+		.hero #title {
+			color: var(--background);
+			margin: 0;
+			text-align: center;
+		}
+
+		.text {
+			font-size: 17px;
+			margin: 1em;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 1em;
+		}
+
+		.section {
+			max-width: 1300px;
+			text-decoration: none;
+			color: inherit;
+			display: flex;
+			flex-direction: column;
+			background: var(--surface);
+			gap: 1em;
+			padding: 1.5em;
+			border-radius: 1em;
+		}
+
+		.section .body {
+			display: flex;
+			flex-direction: row;
+			gap: 1em;
+			text-align: justify
+		}
+
+		.section:nth-child(even) .body {
+			flex-direction: row-reverse;
+		}
+
+		@media screen and (max-width: 500px) {
+			.section .body {
+				flex-direction: column !important;
+			}
+		}
+
+		.section .thumbnail {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+		}
+
+		.section .thumbnail img {
+			max-width: 300px;
+			flex-grow: 1;
+			border-radius: 1em;
+		}
+
+		img.tinted {
+			filter: sepia(100%) hue-rotate(calc(var(--tint) * 1deg));
+		}
+	</style>
+</head>
+
+<body>
+<div id="navbar">
+	<div class="logo"></div>
+	<div class="separator"></div>
+	<div id="links">
+		<a href="../home.html" class="link">Home</a>
+		<a href="#" class="link">Quiz</a>
+		<a href="#" class="link">Store</a>
+		<a href="#" class="link">Gallery</a>
+		<a href="../comments.html" class="link">Comments</a>
+		<a href="#" class="link">About Us</a>
+		<a href="#" class="link">Sitemap</a>
+	</div>
+
+	<script>
+		let navbar = document.getElementById("navbar");
+		navbar.addEventListener("click", ev => {
+			if (navbar.classList.contains("fold") && !ev.target.classList.contains("link")) {
+				navbar.classList.toggle("hidden");
+			}
+		})
+		if (window.innerWidth < 800) {
+			navbar.classList.add("fold", "hidden");
+		}
+		window.addEventListener("resize", ev => {
+			if (window.innerWidth < 800) {
+				navbar.classList.add("fold", "hidden");
+			} else {
+				navbar.classList.remove("fold", "hidden");
+			}
+		})
+		// hover bold fix
+		Array.from(document.getElementsByClassName('link')).forEach(link => link.dataset.label = link.innerText)
+	</script>
+</div>
+<div id="content">
+	<div class="hero">
+		<img class="hero-img" src="../img/electronic.jpg" alt="Banner image of Electronic Music">
+		<div class="hero-img-overlay"></div>
+		<h1 id="title">Welcome to Electronic Music!</h1>
+	</div>
+	<div class="text">
+		<div class="section">
+			<h2>Introduction to the Enchanting World of Electronic Music</h2>
+			<div class="body">
+				<div class="thumbnail">
+					<img src="../img/electronic-sectionpic-0.jpg" alt="Image of EDM" class="tinted" loading="lazy">
+				</div>
+				<div class="para">
+					<p>
+						Music made using electronic devices, would be the simplest explanation for <strong>Electronic
+						Music</strong>, yet it only barely touches on why this genre has amassed such a massive
+						following over the years. Emerging during the late 1960s, electronic music started to gain
+						popularity during the late 1980s, and it's popularity has skyrocketed, and currently it could
+						even be considered a global phenomena. The way this genre differentiates from regular music is
+						in its use of instruments like synths, drum machines, and most importantly Digital Audio
+						Workstations, or
+						DAWs for short.
+					</p>
+					<p>
+						Electronic music and its subgenres have had a profound impact on the music industry and has
+						been a driving
+						force behind many new developments in music production and performance. It has also become a
+						significant part of popular culture, influencing various art forms like visual arts,
+						fashion, and dance.
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="section">
+			<h2 class="title">Exploring the Diverse World of Electronic Music</h2>
+			<div class="body">
+				<div class="thumbnail">
+					<img src="../img/electronic-sectionpic-1.jpg" alt="Image of EDM" class="tinted" loading="lazy">
+				</div>
+				<div class="para">
+					<p>
+						Electronic music encompasses a wide range of subgenres, each with its unique characteristics
+						and style. Some of the popular subgenres of electronic music include:
+					</p>
+					<h3>House</h3>
+					<p>
+						Known for its repetitive beats, groovy baselines, and soulful vocals, house music originated
+						in the early 1980s in Chicago. It has since become one of the most prominent and influential
+						genres in electronic dance music (EDM).
+					</p>
+					<h3>Techno</h3>
+					<p>
+						With its roots in Detroit, techno features a futuristic and mechanical sound, driven by
+						synthesisers and drum machines. It emphasises a continuous rhythm and often incorporates
+						elements of industrial and minimal music.
+					</p>
+					<h3>Trap</h3>
+					<p>
+						Emerging from hip-hop and electronic influences, trap music is characterised by its
+						aggressive beats, heavy bass, and use of hi-hats. It has gained immense popularity in recent
+						years.
+					</p>
+					<h3>Dubstep</h3>
+					<p>
+						Originating in the UK, dubstep is known for its heavy basslines, syncopated rhythms, and use
+						of wobble bass. It gained widespread recognition in the early 2000s.
+					</p>
+					<h3>Drum and Bass (DnB)</h3>
+					<p>
+						With fast-paced beats and basslines, DnB is a high-energy genre that originated in the UK.
+						It often features rapid breakbeats and sub-bass elements.
+					</p>
+					<h3>Future Bass</h3>
+					<p>
+						Characterized by its melodic and uplifting sound, future bass incorporates elements from
+						various genres, including trap and dubstep, to create a unique and emotive musical
+						experience.
+					</p>
+					<h3>Lo-fi</h3>
+					<p>
+						Lo-fi, short for "low-fidelity", is a genre known for its raw and unpolished sound. It often
+						includes sampled beats and nostalgic elements, creating a cosy and laid-back atmosphere.
+					</p>
+					<h3>Ambient</h3>
+					<p>
+						Ambient music focuses on creating a tranquil and atmospheric experience through
+						synthesisers, textures, and subtle melodies. It is often used for relaxation and meditation.
+					</p>
+					<h3>Experimental</h3>
+					<p>
+						As the name suggests, experimental electronic music pushes the boundaries of traditional
+						music, incorporating unconventional sounds, structures, and techniques to create unique
+						sonic experiences.
+					</p>
+					<p>
+						Each subgenre offers a distinct journey for listeners, and electronic music as a whole
+						continues to evolve and inspire new generations of artists and music enthusiasts.
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<footer>
+	This page was edited by <a href="../editors/sehandu.html">Sehandu Thevnura Malawaraarachchi</a>.
+	<a class="top" href="#">Back to top</a>
+</footer>
+</body>
+
+</html>
